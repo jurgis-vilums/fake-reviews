@@ -19,7 +19,7 @@ discovery_methods = [
     "Friends", "School/college", "Other, please specify"
 ]
 marketing_channels = [
-    "Email", "Instagram", "Facebook", "TikTok", "Visiting the website", 
+    "Email", "Instagram", "Linkedin", "TikTok", "Visiting the website", 
     "Phone calls to the sales manager", "Visits to a physical store", 
     "Through colleagues/bosses", "I do not follow any"
 ]
