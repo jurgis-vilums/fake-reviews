@@ -1,6 +1,7 @@
 import pandas as pd
 import random
 from datetime import datetime, timedelta
+from plot_data_fn import plot_data
 
 # Number of responses to generate
 num_responses = 100
@@ -38,22 +39,28 @@ stop_causes = [
 def generate_responses(num):
     data = []
     for _ in range(num):
-        timestamp = datetime.now() - timedelta(days=random.randint(0, 365))
-        role = random.choices(roles, weights=[1, 1, 1, 1, 4, 1])[0]  # Bias toward "Individual consumer"
-        brand = random.choices(brands, weights=[4, 1, 1, 1, 1])[0]  # Bias toward "Brand A"
-        years_using = random.randint(0, 30)
-        discovery = random.choice(discovery_methods)
-        channels_followed = ', '.join(random.sample(marketing_channels, random.randint(1, len(marketing_channels))))
-        personal_use = random.choice(["Yes", "No"])
-        familiar_product_line = f"Product Line {random.randint(1, 5)}"
-        causes_to_stop = ', '.join(random.sample(stop_causes, random.randint(1, len(stop_causes))))
-        issues_encountered = random.randint(0, 5)
-        loyalty = random.randint(1, 10)
-        online_store_usage = random.choice(["Yes", "No"])
-        quarterly_spend = random.randint(50, 1000)
+        role = random.choices(roles, weights=[1, 1, 1, 1, 4, 1])[0]
+        brand = random.choices(brands, weights=[4, 1, 1, 1, 1])[0]
+        years_using = max(0, min(30, int(random.gauss(6, 4))))
+        discovery = random.choices(discovery_methods, weights=[1,2,3,4,5,14,5,6,12,8,5,10,4,14,3])[0]
         
+        # Generate multiple channels and join them as a single string
+        num_channels = max(1, min(9, int(random.gauss(6, 4))))
+        channels_followed = ', '.join(random.choices(marketing_channels, weights=[1, 1, 1, 1, 4, 1, 1, 1, 1], k=num_channels))
+
+        personal_use = random.choices(["Yes", "No"], weights=[3, 1])[0]
+
+        familiar_product_line = f"Product Line {random.randint(1, 5)}"
+
+        # Randomly generate causes to stop using
+        causes_to_stop = ', '.join(random.choices(stop_causes, weights=[1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1], k=max(1, min(12, int(random.gauss(6, 4))))))
+        
+        issues_encountered = max(0, min(5, int(random.gauss(3, 1))))
+        loyalty = max(0, min(10, int(random.gauss(7, 2))))
+        online_store_usage = random.choices(["Yes", "No"], weights=[4, 1])[0]
+        quarterly_spend = max(50, min(1000, int(random.gauss(300, 100))))
+
         row = {
-            "Timestamp": timestamp.strftime("%d/%m/%Y %H:%M:%S"),
             "Role in Cosmetics Industry": role,
             "Cosmetic Brand Used Most Frequently": brand,
             "Years Using Brand": years_using,
@@ -72,11 +79,10 @@ def generate_responses(num):
     
     return data
 
-# Generate responses and create a DataFrame
 responses = generate_responses(num_responses)
 df = pd.DataFrame(responses)
-# print(df.to_string())
 
+plot_data(df, 'Role in Cosmetics Industry')  # To plot only the 'Years Using Brand'
+plot_data(df, 'all') 
 
-# Save the DataFrame to a CSV file
 df.to_csv("biased_fake_responses.csv", index=False)
