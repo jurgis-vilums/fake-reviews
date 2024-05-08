@@ -28,9 +28,16 @@ def plot_data(df, plot_type):
         plt.tight_layout()
         plt.show()
     elif plot_type in plot_functions:
-        plt.figure()
+        plt.figure(figsize=(5, 7))
         plot_functions[plot_type]()
         plt.title(plot_type)
+        
+        plt.xticks(rotation=90, fontsize=8)
+        plt.yticks(rotation=0, fontsize=8)
+
+        plt.tight_layout()
+        plt.subplots_adjust(bottom=0.3, top=0.95)
+
         plt.show()
     else:
         print("Plot type not recognized. Available types are:", list(plot_functions.keys()) + ['all'])

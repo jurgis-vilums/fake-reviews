@@ -83,6 +83,6 @@ responses = generate_responses(num_responses)
 df = pd.DataFrame(responses)
 
 plot_data(df, 'Role in Cosmetics Industry')  # To plot only the 'Years Using Brand'
-plot_data(df, 'all') 
+# plot_data(df, 'all') 
 
 df.to_csv("biased_fake_responses.csv", index=False)
