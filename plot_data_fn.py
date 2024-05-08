@@ -7,7 +7,7 @@ def plot_data(df, plot_type):
     sns.set(style="whitegrid")
     
     # Define which plots should have rotated x-axis labels
-    rotate_x_labels = {'Role in Cosmetics Industry', 'Learned About Brand', 'Use Online Store'}
+    rotate_x_labels = {'Role in Cosmetics Industry', 'Learned About Brand'}
 
     plot_functions = {
         'Years Using Brand': lambda ax: sns.histplot(df['Years Using Brand'], bins=15, kde=True, ax=ax),
@@ -37,6 +37,6 @@ def plot_data(df, plot_type):
         plt.subplots_adjust(bottom=0.3, top=0.95)
         plt.show()
     else:
-        print("Plot type not recognized. Available types are:", list(plot_functions.keys()) + ['all'])
+        print("Plot type", plot_type, "is not recognized.")
 
 
