@@ -1,7 +1,6 @@
 import pandas as pd
 import random
 from datetime import datetime, timedelta
-from plot_data_fn import plot_data
 
 # Number of responses to generate
 num_responses = 100
@@ -53,7 +52,7 @@ def generate_responses(num):
         familiar_product_line = f"Product Line {random.randint(1, 5)}"
 
         # Randomly generate causes to stop using
-        causes_to_stop = ', '.join(random.choices(stop_causes, weights=[1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1], k=max(1, min(12, int(random.gauss(6, 4))))))
+        causes_to_stop = ', '.join(random.choices(stop_causes, weights=[5 if role == "test" else 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 8 if role == "Cosmetology specialist" or role == "test" else 1], k=max(1, min(12, int(random.gauss(6, 4))))))
         
         issues_encountered = max(0, min(5, int(random.gauss(3, 1))))
         loyalty = max(0, min(10, int(random.gauss(7, 2))))
