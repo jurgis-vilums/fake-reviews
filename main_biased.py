@@ -79,6 +79,7 @@ def generate_responses(num):
     
     return data
 
+
 responses = generate_responses(num_responses)
 df = pd.DataFrame(responses)
 
