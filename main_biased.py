@@ -65,10 +65,10 @@ def generate_responses(num):
             "Cosmetic Brand Used Most Frequently": brand,
             "Years Using Brand": years_using,
             "Learned About Brand": discovery,
-            # "Marketing Channels Followed": channels_followed,
+            "Marketing Channels Followed": channels_followed,
             "Personal Use at Home": personal_use,
-            # "Most Familiar Product Line": familiar_product_line,
-            # "Potential Causes to Stop Using Brand": causes_to_stop,
+            "Most Familiar Product Line": familiar_product_line,
+            "Potential Causes to Stop Using Brand": causes_to_stop,
             "Issues Encountered": issues_encountered,
             "Loyalty": loyalty,
             "Use Online Store": online_store_usage,
@@ -81,18 +81,5 @@ def generate_responses(num):
 
 responses = generate_responses(num_responses)
 df = pd.DataFrame(responses)
-
-plot_data(df, 'Role in Cosmetics Industry')  # To plot only the 'Years Using Brand'
-plot_data(df, 'Cosmetic Brand Used Most Frequently')
-plot_data(df, 'Learned About Brand')
-# plot_data(df, 'Marketing Channels Followed')
-plot_data(df, 'Personal Use at Home')
-# plot_data(df, 'Most Familiar Product Line')
-# plot_data(df, 'Potential Causes to Stop Using Brand')
-plot_data(df, 'Issues Encountered')
-plot_data(df, 'Loyalty')
-plot_data(df, 'Use Online Store')
-plot_data(df, 'Average Quarterly Spend')
-
 
 df.to_csv("biased_fake_responses.csv", index=False)
