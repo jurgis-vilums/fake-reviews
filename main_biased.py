@@ -3,60 +3,59 @@ import random
 from datetime import datetime, timedelta
 
 # Number of responses to generate
-num_responses = 100
+num_responses = 124
 
 # Possible answers
 roles = [
     "Cosmetology specialist", "Massage professional", "Cosmetics brand owner",
-    "Beauty studio manager/administrator", "Individual consumer", "Other, please specify"
+    "Beauty studio manager/administrator", "Non professional"
 ]
-brands = ["Brand A", "Brand B", "Brand C", "Brand D", "Brand E"]
+brands = ["Brand A", "Brand B", "Brand C", "Brand D", "Brand E", "Brand F", "Brand G", "Brand H"]
 discovery_methods = [
-    "At an exhibition", "At educational courses", "From colleagues", "At your workplace",
-    "From clients", "From a family member", "Through an internet search",
-    "Via an internet advertisement", "Via a social media advertisement", 
-    "Through an email newsletter", "Word of mouth", "Shelf or poster ad at the shop",
-    "Friends", "School/college", "Other, please specify"
+    "At exhibition", "From colleagues", "At workplace",
+    "From clients", "From family member", "Own internet search",
+    "Internet advertisement", "Social media advertisement", 
+    "Email newsletter", "Word of mouth", "On the store shelf or poster", "School/college"
 ]
 marketing_channels = [
-    "Email", "Instagram", "Linkedin", "TikTok", "Visiting the website", 
-    "Phone calls to the sales manager", "Visits to a physical store", 
-    "Through colleagues/bosses", "I do not follow any"
+    "Email", "Instagram", "Facebook", "TikTok", "By visiting Website", 
+    "Call to sales manager", "Visit Physical store", "Seminars", 
+    "Through colleagues/bosses", "I do not"
 ]
 stop_causes = [
-    "Products becoming widely available in shops", "Reduced support from sales manager", 
-    "Absence of new product lines", "New product lines lacking a unique sales proposition", 
-    "Lack of educational seminars supporting new products", 
-    "Brand not recognized or preferred by clients", "Dissatisfaction with products among clients", 
-    "Product-based procedures becoming less profitable", 
-    "Moving to another country where the brand is unknown", 
-    "Ethical or financial scandals associated with the brand or personnel", 
-    "Slow or poor product delivery", "Receiving spoiled or damaged products"
+    "It’s products has become available in shops for customers", "Less support by sales manager", 
+    "Apsense of new product lines", "New product lines lacking unique sales proposition", 
+    "Apsense of educational seminars supporting new product lines", 
+    "Clients not recognising the brand/preferring other brand", "Client open dissatisfaction with product", 
+    "Product line based procedures become less profitable", 
+    "Moving to other country where clients do not know the brand", 
+    "Ethical or financial scandal linked with mentioned brand or personnel", 
+    "Slow or bad delivery of products", "Spoiled product or damaged packaging with further replacement"
 ]
 
 # Function to generate random responses with tendencies
 def generate_responses(num):
     data = []
     for _ in range(num):
-        role = random.choices(roles, weights=[1, 1, 1, 1, 4, 1])[0]
-        brand = random.choices(brands, weights=[4, 1, 1, 1, 1])[0]
-        years_using = max(0, min(30, int(random.gauss(6, 4))))
-        discovery = random.choices(discovery_methods, weights=[1,2,3,4,5,14,5,6,12,8,5,10,4,14,3])[0]
+        role = random.choices(roles, weights=[30, 20, 0, 3, 20])[0]
+        brand = random.choices(brands, weights=[2, 6, 3, 3, 1, 1, 1, 1])[0]
+        years_using = max(0, min(30, int(random.gauss(7, 4))))
+        discovery = random.choices(discovery_methods, weights=[20,45,5,2,4,14,5,6,12,8,17,10])[0]
         
         # Generate multiple channels and join them as a single string
-        num_channels = max(1, min(9, int(random.gauss(6, 4))))
-        channels_followed = ', '.join(random.choices(marketing_channels, weights=[1, 1, 1, 1, 4, 1, 1, 1, 1], k=num_channels))
+        num_channels = max(1, min(9, int(random.gauss(2, 3))))
+        channels_followed = ', '.join(random.choices(marketing_channels, weights=[15, 45, 55, 5, 60, 20, 10, 13, 0], k=num_channels))
 
         personal_use = random.choices(["Yes", "No"], weights=[3, 1])[0]
 
         familiar_product_line = f"Product Line {random.randint(1, 5)}"
 
         # Randomly generate causes to stop using
-        causes_to_stop = ', '.join(random.choices(stop_causes, weights=[5 if role == "test" else 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 8 if role == "Cosmetology specialist" or role == "test" else 1], k=max(1, min(12, int(random.gauss(6, 4))))))
+        causes_to_stop = ', '.join(random.choices(stop_causes, weights=[5, 10, 3, 5, 7, 1, 14, 9, 8, 12, 6, 8], k=max(1, min(12, int(random.gauss(5, 4))))))
         
-        issues_encountered = max(0, min(5, int(random.gauss(3, 1))))
-        loyalty = max(0, min(10, int(random.gauss(7, 2))))
-        online_store_usage = random.choices(["Yes", "No"], weights=[4, 1])[0]
+        issues_encountered = max(0, min(5, int(random.gauss(0, 1))))
+        loyalty = max(0, min(10, int(random.gauss(7, 3))))
+        online_store_usage = random.choices(["Yes", "No"], weights=[20, 15])[0]
         quarterly_spend = max(50, min(1000, int(random.gauss(300, 100))))
 
         row = {
